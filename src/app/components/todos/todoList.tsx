@@ -7,6 +7,7 @@ interface TodoListProps {
   onEdit: (todo: Todo) => void;
   onDelete: (id: string | undefined) => void;
   onToggleComplete: (id: string | undefined) => void;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TodoList = ({
@@ -14,6 +15,7 @@ const TodoList = ({
   onEdit,
   onDelete,
   onToggleComplete,
+  setOpenModal,
 }: TodoListProps) => {
   return (
     <ul className="w-full max-w-md space-y-2">
@@ -24,6 +26,7 @@ const TodoList = ({
           onEdit={onEdit}
           onDelete={onDelete}
           onToggleComplete={onToggleComplete}
+          setOpenModal={setOpenModal}
         />
       ))}
     </ul>

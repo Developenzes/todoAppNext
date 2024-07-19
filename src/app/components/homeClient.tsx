@@ -5,6 +5,8 @@ import { Todo } from "./todos/types";
 import TodoForm from "./todos/todoForm";
 import TodoList from "./todos/todoList";
 import TodoFilter from "./todos/todoFilter";
+import { toast } from "react-hot-toast";
+import Modal from "./modal";
 
 interface HomeClientProps {
   initialTodos: Todo[];
@@ -15,6 +17,7 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [loading, setLoading] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const addTodo = async (todo: Todo) => {
     setLoading(true);
@@ -33,6 +36,7 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
       setTodos([...todos, newTodo]);
     } finally {
       setLoading(false);
+      toast.success("Todo has been added");
     }
   };
 
@@ -58,14 +62,19 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
       setEditingTodo(null);
     } finally {
       setLoading(false);
+      toast.success("Todo has been updated");
     }
   };
 
   const deleteTodo = async (id: string | undefined) => {
-    await fetch(`https://669a4abc9ba098ed61ff176a.mockapi.io/todos/${id}`, {
-      method: "DELETE",
-    });
-    setTodos(todos.filter((todo) => todo.id !== id));
+    try {
+      await fetch(`https://669a4abc9ba098ed61ff176a.mockapi.io/todos/${id}`, {
+        method: "DELETE",
+      });
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } finally {
+      toast.success("Todo has been removed");
+    }
   };
 
   const toggleCompleteTodo = async (id: string | undefined) => {
@@ -99,17 +108,29 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
 
   return (
     <main className="min-h-screen flex flex-col items-center bg-gray-100 p-4 gap-8">
-      <TodoForm
-        onSubmit={editingTodo ? editTodo : addTodo}
-        editingTodo={editingTodo}
-        loading={loading}
-      />
-      <TodoFilter filter={filter} setFilter={setFilter} />
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <TodoForm
+          onSubmit={editingTodo ? editTodo : addTodo}
+          editingTodo={editingTodo}
+          loading={loading}
+          setOpenModal={setOpenModal}
+        />
+      </Modal>
+      <section className="grid w-full max-w-md mt-3 grid-cols-2 md:grid-cols-3 gap-8 ">
+        <TodoFilter filter={filter} setFilter={setFilter} />
+        <button
+          onClick={() => setOpenModal(true)}
+          className="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 rounded transition duration-200 h-10 col-span-1 md:col-span-2"
+        >
+          Add new todo
+        </button>
+      </section>
       <TodoList
         todos={filteredTodos}
         onEdit={setEditingTodo}
         onDelete={deleteTodo}
         onToggleComplete={toggleCompleteTodo}
+        setOpenModal={setOpenModal}
       />
     </main>
   );

@@ -9,6 +9,7 @@ interface TodoItemProps {
   onEdit: (todo: Todo) => void;
   onDelete: (id: string | undefined) => void;
   onToggleComplete: (id: string | undefined) => void;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TodoItem = ({
@@ -16,9 +17,15 @@ const TodoItem = ({
   onEdit,
   onDelete,
   onToggleComplete,
+  setOpenModal,
 }: TodoItemProps) => {
+  const onEditTodo = () => {
+    onEdit(todo);
+    setOpenModal(true);
+  };
+
   return (
-    <li className="flex items-center justify-between bg-white p-4 rounded shadow-sm">
+    <li className="flex items-center justify-between bg-white p-4 rounded shadow-sm gap-1">
       <span className={`flex-1 ${todo.completed ? "line-through" : ""}`}>
         {todo.title}
       </span>
@@ -34,7 +41,7 @@ const TodoItem = ({
           {todo.completed ? <IncompleteIcon /> : <CompleteIcon />}
         </button>
         <button
-          onClick={() => onEdit(todo)}
+          onClick={onEditTodo}
           className="p-1  text-blue-400 rounded hover:text-blue-600 hover:scale-110 transition duration-200"
         >
           <EditIcon />

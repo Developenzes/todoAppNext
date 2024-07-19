@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { Todo } from "./types";
 import SubmitButton from "./submitButton";
 
-interface TodoFormProps {
+type TodoFormProps = {
   onSubmit: (todo: Todo) => void;
   editingTodo: Todo | null;
   loading: boolean;
-}
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const TodoForm = ({ onSubmit, editingTodo, loading }: TodoFormProps) => {
+const TodoForm = ({
+  onSubmit,
+  editingTodo,
+  loading,
+  setOpenModal,
+}: TodoFormProps) => {
   const [title, setTitle] = useState<string>("");
   const [completed, setCompleted] = useState<boolean>(false);
 
@@ -27,11 +33,13 @@ const TodoForm = ({ onSubmit, editingTodo, loading }: TodoFormProps) => {
     onSubmit({ title, completed });
     setTitle("");
     setCompleted(false);
+    setOpenModal(false);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
+      onClick={(e) => e.stopPropagation()}
       className="w-full max-w-md bg-white p-6 rounded shadow-md flex flex-col gap-4"
     >
       <input
@@ -40,7 +48,7 @@ const TodoForm = ({ onSubmit, editingTodo, loading }: TodoFormProps) => {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Enter todo"
         required
-        className="w-full p-2 border border-gray-300 rounded"
+        className="w-full p-2 border border-gray-300 rounded transition duration-200 focus:outline-none focus:border-sky-500 focus:ring-1"
       />
       <label className="flex items-center">
         <input
