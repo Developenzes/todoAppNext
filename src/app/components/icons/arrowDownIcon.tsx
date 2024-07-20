@@ -1,6 +1,6 @@
 import { IconProps } from "@/app/components/todos/types";
 
-const ArrowDown = ({ width, height }: IconProps) => {
+const ArrowDownIcon = ({ width, height }: IconProps) => {
   return (
     <svg
       fill="currentcolor"
@@ -25,4 +25,4 @@ const ArrowDown = ({ width, height }: IconProps) => {
   );
 };
 
-export default ArrowDown;
+export default ArrowDownIcon;

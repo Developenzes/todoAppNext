@@ -1,6 +1,6 @@
 import { IconProps } from "@/app/components/todos/types";
 
-const Remove = ({ width, height }: IconProps) => {
+const RemoveIcon = ({ width, height }: IconProps) => {
   return (
     <svg
       width={width || 16}
@@ -31,4 +31,4 @@ const Remove = ({ width, height }: IconProps) => {
   );
 };
 
-export default Remove;
+export default RemoveIcon;
