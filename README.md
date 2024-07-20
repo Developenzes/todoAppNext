@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-##About App:
+## About App:
 Todo app built using Next.js, Typescript, Tailwind and mockapi.io
 In the application, tasks can be added to the database, edited, deleted, or marked as done. It is also possible to filter completed or incompleted tasks. The web app can be switched itto dark mode.
 
