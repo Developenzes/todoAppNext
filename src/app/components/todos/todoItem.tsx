@@ -33,7 +33,7 @@ const TodoItem = ({
       <span className={`flex-1 ${todo.completed ? "line-through" : ""}`}>
         {todo.title}
       </span>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         <button
           onClick={() => onToggleComplete(todo.id)}
           className={`p-1 transition duration-200 hover:scale-110 ${
