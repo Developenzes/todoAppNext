@@ -26,8 +26,8 @@ const TodoItem = ({
 
   return (
     <li
-      className={`flex items-center justify-between bg-white p-4 rounded shadow-sm gap-1 transition duration-200 ${
-        todo.completed && "bg-opacity-60"
+      className={`flex items-center justify-between bg-white dark:bg-gray-700 p-4 rounded shadow-sm gap-1 transition duration-200 ${
+        todo.completed && "bg-opacity-60 dark:bg-opacity-60"
       }`}
     >
       <span className={`flex-1 ${todo.completed ? "line-through" : ""}`}>
