@@ -106,9 +106,14 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
     return true;
   });
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setEditingTodo(null);
+  };
+
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gray-100 p-4 gap-8">
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+    <main className="min-h-screen flex flex-col items-center p-4 gap-8">
+      <Modal open={openModal} onClose={handleCloseModal}>
         <TodoForm
           onSubmit={editingTodo ? editTodo : addTodo}
           editingTodo={editingTodo}
@@ -116,11 +121,11 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
           setOpenModal={setOpenModal}
         />
       </Modal>
-      <section className="grid w-full max-w-md mt-3 grid-cols-2 md:grid-cols-3 gap-8 ">
+      <section className="grid w-full max-w-md mt-3 grid-cols-2 sm:grid-cols-3 gap-4">
         <TodoFilter filter={filter} setFilter={setFilter} />
         <button
           onClick={() => setOpenModal(true)}
-          className="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 rounded transition duration-200 h-10 col-span-1 md:col-span-2"
+          className="btn bg-blue-500 hover:bg-blue-400 col-span-1 sm:col-span-2"
         >
           Add new todo
         </button>
