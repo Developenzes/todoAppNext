@@ -1,4 +1,3 @@
-import { useFormStatus } from "react-dom";
 import { Todo } from "./types";
 
 type ButtonProps = {
@@ -13,7 +12,7 @@ const SubmitButton = ({ editingTodo, loading }: ButtonProps) => {
     <button
       type="submit"
       disabled={loading}
-      className="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 rounded transition duration-200"
+      className="btn bg-blue-500 hover:bg-blue-400 "
     >
       {!loading ? buttonText : loadingText}
     </button>

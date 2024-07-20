@@ -1,7 +1,7 @@
-import CompleteIcon from "../../../../public/svg/completeIcon";
-import EditIcon from "../../../../public/svg/editIcon";
-import IncompleteIcon from "../../../../public/svg/incompleteIcon";
-import RemoveIcon from "../../../../public/svg/removeIcon";
+import CompleteIcon from "../icons/completeIcon";
+import EditIcon from "../icons/editIcon";
+import IncompleteIcon from "../icons/incompleteIcon";
+import RemoveIcon from "../icons/removeIcon";
 import { Todo } from "./types";
 
 interface TodoItemProps {
@@ -25,7 +25,11 @@ const TodoItem = ({
   };
 
   return (
-    <li className="flex items-center justify-between bg-white p-4 rounded shadow-sm gap-1">
+    <li
+      className={`flex items-center justify-between bg-white p-4 rounded shadow-sm gap-1 transition duration-200 ${
+        todo.completed && "bg-opacity-60"
+      }`}
+    >
       <span className={`flex-1 ${todo.completed ? "line-through" : ""}`}>
         {todo.title}
       </span>

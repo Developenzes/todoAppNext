@@ -48,14 +48,14 @@ const TodoForm = ({
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Enter todo"
         required
-        className="w-full p-2 border border-gray-300 rounded transition duration-200 focus:outline-none focus:border-sky-500 focus:ring-1"
+        className="w-full p-2 border border-gray-300 h-10 rounded transition duration-200 focus:outline-none focus:border-sky-500 focus:ring-1 "
       />
-      <label className="flex items-center">
+      <label className="flex items-center w-fit cursor-pointer">
         <input
           type="checkbox"
           checked={completed}
           onChange={(e) => setCompleted(e.target.checked)}
-          className="mr-2 size-4"
+          className="mr-2 size-4 cursor-pointer"
         />
         Completed
       </label>
