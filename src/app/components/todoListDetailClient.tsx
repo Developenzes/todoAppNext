@@ -10,23 +10,28 @@ import Modal from "./modal";
 import { addTodo, editTodo, deleteTodo, toggleCompleteTodo } from "../lib/api";
 import SunIcon from "./icons/sunIcon";
 import MoonIcon from "./icons/moonIcon";
+import Link from "next/link";
+import BackIcon from "./icons/backIcon";
 
-type HomeClientProps = {
+type TodoListDetailProps = {
   initialTodos: Todo[];
+  slug: string;
 };
 
-const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
+const TodoListDetailClient = ({ initialTodos, slug }: TodoListDetailProps) => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [loading, setLoading] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+
+  const API_URL = `https://669a4abc9ba098ed61ff176a.mockapi.io/${slug}`;
 
   const handleAddTodo = async (todo: Todo) => {
     setLoading(true);
     try {
-      const newTodo = await addTodo(todo);
+      const newTodo = await addTodo(todo, API_URL);
       setTodos([...todos, newTodo]);
       toast.success("Todo has been added");
     } catch (error) {
@@ -41,7 +46,7 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
 
     setLoading(true);
     try {
-      const updatedTodo = await editTodo(editingTodo.id, todo);
+      const updatedTodo = await editTodo(editingTodo.id, todo, API_URL);
       setTodos(
         todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
       );
@@ -56,7 +61,7 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
 
   const handleDeleteTodo = async (id: string | undefined) => {
     try {
-      await deleteTodo(id);
+      await deleteTodo(id, API_URL);
       setTodos(todos.filter((todo) => todo.id !== id));
       toast.success("Todo has been removed");
     } catch (error) {
@@ -69,7 +74,7 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
     if (!todo) return;
 
     try {
-      const updatedTodo = await toggleCompleteTodo(id, todo);
+      const updatedTodo = await toggleCompleteTodo(id, todo, API_URL);
       setTodos(
         todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
       );
@@ -108,8 +113,15 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
           <MoonIcon width={24} height={24} />
         )}
       </button>
+      <Link
+        className="text-gray-100 absolute left-8 top-8 flex gap-2 items-center"
+        href="/"
+      >
+        <BackIcon width={24} height={24} />
+        <span className="hidden sm:block">back</span>
+      </Link>
 
-      <div className="min-h-screen flex flex-col items-center p-4 gap-8 z-1 dark:bg-gray-900 dark:text-gray-100 ">
+      <div className="h-[calc(100vh-88px-28px)] flex flex-col items-center p-4 gap-8 z-1 dark:bg-gray-900 dark:text-gray-100 ">
         <Modal open={openModal} onClose={handleCloseModal}>
           <TodoForm
             onSubmit={editingTodo ? handleEditTodo : handleAddTodo}
@@ -139,4 +151,4 @@ const HomeClient: React.FC<HomeClientProps> = ({ initialTodos }) => {
   );
 };
 
-export default HomeClient;
+export default TodoListDetailClient;

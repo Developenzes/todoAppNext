@@ -5,7 +5,7 @@ type TodoFilterProps = {
   setFilter: (filter: string) => void;
 };
 
-const TodoFilter: React.FC<TodoFilterProps> = ({ filter, setFilter }) => {
+const TodoFilter = ({ filter, setFilter }: TodoFilterProps) => {
   return (
     <div className="col-span-1 relative">
       <div className="absolute right-2 top-3.5 pointer-events-none">

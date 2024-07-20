@@ -4,13 +4,13 @@ import IncompleteIcon from "../icons/incompleteIcon";
 import RemoveIcon from "../icons/removeIcon";
 import { Todo } from "./types";
 
-interface TodoItemProps {
+type TodoItemProps = {
   todo: Todo;
   onEdit: (todo: Todo) => void;
   onDelete: (id: string | undefined) => void;
   onToggleComplete: (id: string | undefined) => void;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const TodoItem = ({
   todo,

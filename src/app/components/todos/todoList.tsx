@@ -2,13 +2,13 @@ import React from "react";
 import { Todo } from "./types";
 import TodoItem from "./todoItem";
 
-interface TodoListProps {
+type TodoListProps = {
   todos: Todo[];
   onEdit: (todo: Todo) => void;
   onDelete: (id: string | undefined) => void;
   onToggleComplete: (id: string | undefined) => void;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const TodoList = ({
   todos,

@@ -1,9 +1,7 @@
 import { Todo } from "../components/todos/types";
 
-const API_URL = "https://669a4abc9ba098ed61ff176a.mockapi.io/todos";
-
-export const addTodo = async (todo: Todo): Promise<Todo> => {
-  const response = await fetch(API_URL, {
+export const addTodo = async (todo: Todo, url: string): Promise<Todo> => {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,9 +13,10 @@ export const addTodo = async (todo: Todo): Promise<Todo> => {
 
 export const editTodo = async (
   id: string | undefined,
-  todo: Todo
+  todo: Todo,
+  url: string
 ): Promise<Todo> => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${url}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -27,17 +26,21 @@ export const editTodo = async (
   return response.json();
 };
 
-export const deleteTodo = async (id: string | undefined): Promise<void> => {
-  await fetch(`${API_URL}/${id}`, {
+export const deleteTodo = async (
+  id: string | undefined,
+  url: string
+): Promise<void> => {
+  await fetch(`${url}/${id}`, {
     method: "DELETE",
   });
 };
 
 export const toggleCompleteTodo = async (
   id: string | undefined,
-  todo: Todo
+  todo: Todo,
+  url: string
 ): Promise<Todo> => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${url}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,3 @@
-"use client";
-
 const Header = () => {
   return (
     <header className="w-full text-center bg-gray-900 p-4 relative">
