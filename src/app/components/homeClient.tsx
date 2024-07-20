@@ -10,8 +10,6 @@ import Modal from "./modal";
 import { addTodo, editTodo, deleteTodo, toggleCompleteTodo } from "../lib/api";
 import SunIcon from "./icons/sunIcon";
 import MoonIcon from "./icons/moonIcon";
-import { getDarkModeFromLocalStorage } from "../lib/darkModeStorage";
-import { setDarkModeToLocalStorage } from "../lib/darkModeStorage";
 
 type HomeClientProps = {
   initialTodos: Todo[];
