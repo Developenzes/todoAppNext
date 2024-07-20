@@ -19,7 +19,7 @@ const TodoList = ({
 }: TodoListProps) => {
   return (
     <ul className="w-full max-w-md space-y-2">
-      {todos.map((todo) => (
+      {todos?.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}

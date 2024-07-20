@@ -48,7 +48,7 @@ const TodoListDetailClient = ({ initialTodos, slug }: TodoListDetailProps) => {
     try {
       const updatedTodo = await editTodo(editingTodo.id, todo, API_URL);
       setTodos(
-        todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
+        todos?.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
       );
       setEditingTodo(null);
       toast.success("Todo has been updated");
@@ -62,7 +62,7 @@ const TodoListDetailClient = ({ initialTodos, slug }: TodoListDetailProps) => {
   const handleDeleteTodo = async (id: string | undefined) => {
     try {
       await deleteTodo(id, API_URL);
-      setTodos(todos.filter((todo) => todo.id !== id));
+      setTodos(todos?.filter((todo) => todo.id !== id));
       toast.success("Todo has been removed");
     } catch (error) {
       toast.error("Failed to delete todo");
@@ -70,7 +70,7 @@ const TodoListDetailClient = ({ initialTodos, slug }: TodoListDetailProps) => {
   };
 
   const handleToggleCompleteTodo = async (id: string | undefined) => {
-    const todo = todos.find((todo) => todo.id === id);
+    const todo = todos?.find((todo) => todo.id === id);
     if (!todo) return;
 
     try {
@@ -83,7 +83,7 @@ const TodoListDetailClient = ({ initialTodos, slug }: TodoListDetailProps) => {
     }
   };
 
-  const filteredTodos = todos.filter((todo) => {
+  const filteredTodos = todos?.filter((todo) => {
     if (filter === "completed") {
       return todo.completed;
     } else if (filter === "uncompleted") {
